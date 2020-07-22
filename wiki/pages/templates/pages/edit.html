@@ -1,0 +1,38 @@
+{% extends "pages/layout.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="sidebar col-lg-2 col-md-3">
+	        <h2>Wiki</h2>
+	        <form action="{% url 'encyclopedia:index' %}" method="post">
+	                    {% csrf_token %}
+	                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
+	                </form>
+	                <div>
+	                    <a href="{% url 'encyclopedia:index' %}">Home</a>
+	                </div>
+	                <div>
+	                    <a href="{% url 'pages:index' %}">Create New Page</a>
+	                </div>
+	                <div>
+	                    <a href="{% url 'pages:randomChoice' %}">Random Page</a>
+	                </div>
+		</div>
+		<div class="main col-lg-10 col-md-9">
+
+			<h1>Edit This Page</h1>
+			<form action="{% url 'pages:editPage' title %}" method="post">
+		        {% csrf_token %}
+		        <h2>{{title}}</h2>
+		    	<textarea name="contents" rows="6" cols="50">{{contents}}</textarea>
+				<div>
+					<button>Submit Page</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
